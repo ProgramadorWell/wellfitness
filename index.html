@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fitness Tracker</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+
+<button id="temaBtn" onclick="trocarTema()">
+🌙 Modo Escuro
+</button>
+
+
+<h1 id="tituloUsuario">
+🏋️ Fitness Tracker
+</h1>
+
+<p>Controle sua evolução</p>
+
+</header>
+
+<div class="container">
+
+
+<section class="card">
+
+<h2>👤 Dados Pessoais</h2>
+
+<div class="grid">
+
+<input type="text" id="nomeUsuario" placeholder="Nome">
+
+<input type="date" id="nascimento">
+
+<input type="number" id="pesoAtual" placeholder="Peso Atual (kg)">
+
+<input type="number" step="0.01" id="alturaAtual" placeholder="Altura (m)">
+
+<select id="objetivoUsuario">
+    <option>Hipertrofia</option>
+    <option>Emagrecimento</option>
+    <option>Manutenção</option>
+</select>
+
+</div>
+
+<button onclick="salvarPerfil()">
+Salvar Dados
+</button>
+
+<br><br>
+
+<h3 id="perfilInfo"></h3>
+
+</section>
+
+
+
+<section class="card">
+
+<h2>🎯 Meta de Peso</h2>
+
+<div class="grid">
+
+<input type="number" id="pesoMetaAtual" placeholder="Peso Atual">
+
+<input type="number" id="pesoMetaDesejado" placeholder="Peso Desejado">
+
+</div>
+
+<button onclick="salvarMeta()">
+Salvar Meta
+</button>
+
+<br><br>
+
+<div class="barra">
+
+<div id="progressoPeso"></div>
+
+</div>
+
+<h3 id="textoMeta"></h3>
+
+</section>
+
+
+
+<section class="card">
+
+<h2>📏 Medidas Corporais</h2>
+
+<div class="grid">
+
+<input type="date" id="dataMedida">
+
+<input type="number" id="bracoD" placeholder="Braço Direito (cm)">
+
+<input type="number" id="bracoE" placeholder="Braço Esquerdo (cm)">
+
+<input type="number" id="peito" placeholder="Peitoral (cm)">
+
+<input type="number" id="ombro" placeholder="Ombros (cm)">
+
+<input type="number" id="cintura" placeholder="Cintura (cm)">
+
+<input type="number" id="abdomen" placeholder="Abdômen (cm)">
+
+<input type="number" id="quadril" placeholder="Quadril (cm)">
+
+<input type="number" id="coxaD" placeholder="Coxa Direita (cm)">
+
+<input type="number" id="coxaE" placeholder="Coxa Esquerda (cm)">
+
+<input type="number" id="panturrilhaD" placeholder="Panturrilha Direita (cm)">
+
+<input type="number" id="panturrilhaE" placeholder="Panturrilha Esquerda (cm)">
+
+<input type="number" id="pescoco" placeholder="Pescoço (cm)">
+
+</div>
+
+
+<button onclick="salvarMedida()">
+Salvar Medidas
+</button>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Data</th>
+<th>Braço</th>
+<th>Peito</th>
+<th>Cintura</th>
+<th>Coxa</th>
+<th></th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="listaMedidas">
+
+</tbody>
+
+
+</table>
+
+
+</section>
+
+    <!-- IMC -->
+
+<section class="card">
+
+<h2>Calculadora de IMC</h2>
+
+<div class="campo">
+
+<label>Peso (kg)</label>
+
+<input type="number" id="pesoIMC">
+
+</div>
+
+<div class="campo">
+
+<label>Altura (m)</label>
+
+<input type="number" step="0.01" id="alturaIMC">
+
+</div>
+
+<button onclick="calcularIMC()">
+Calcular IMC
+</button>
+
+<h3 id="resultadoIMC"></h3>
+
+</section>
+
+<!-- ÁGUA -->
+
+<section class="card">
+
+<h2>Consumo Diário de Água</h2>
+
+<div class="campo">
+
+<label>Peso (kg)</label>
+
+<input type="number" id="pesoAgua">
+
+</div>
+
+<button onclick="calcularAgua()">
+Calcular
+</button>
+
+<h3 id="resultadoAgua"></h3>
+
+</section>
+
+<!-- PROTEÍNA -->
+
+<section class="card">
+
+<h2>Proteína Diária</h2>
+
+<div class="campo">
+
+<label>Peso (kg)</label>
+
+<input type="number" id="pesoProteina">
+
+</div>
+
+<div class="campo">
+
+<label>Objetivo</label>
+
+<select id="objetivo">
+
+<option value="1.6">
+Manutenção
+</option>
+
+<option value="2">
+Hipertrofia
+</option>
+
+<option value="2.2">
+Emagrecimento
+</option>
+
+</select>
+
+</div>
+
+<button onclick="calcularProteina()">
+Calcular
+</button>
+
+<h3 id="resultadoProteina"></h3>
+
+</section>
+
+<!-- TREINOS -->
+
+<section class="card">
+
+<h2>Meu Treino</h2>
+
+<div class="grid">
+
+<input type="text" id="grupo" placeholder="Grupo Muscular">
+
+<input type="text" id="nome" placeholder="Exercício">
+
+<input type="number" id="series" placeholder="Séries">
+
+<input type="number" id="repeticoes" placeholder="Repetições">
+
+<input type="text" id="peso" placeholder="Peso">
+
+<input type="text" id="obs" placeholder="Observação">
+
+</div>
+
+<button onclick="adicionarTreino()">
+Adicionar Exercício
+</button>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Grupo</th>
+
+<th>Exercício</th>
+
+<th>Séries</th>
+
+<th>Reps</th>
+
+<th>Peso</th>
+
+<th>Obs</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody id="listaTreinos">
+
+</tbody>
+
+</table>
+
+</section>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

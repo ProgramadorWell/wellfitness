@@ -1,0 +1,280 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#111827;
+    color:#fff;
+}
+
+header{
+    background:#16a34a;
+    text-align:center;
+    padding:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.4);
+}
+
+header h1{
+    font-size:34px;
+}
+
+header p{
+    opacity:.9;
+}
+
+.container{
+    width:95%;
+    max-width:1200px;
+    margin:30px auto;
+}
+
+.card{
+    background:#1f2937;
+    padding:25px;
+    margin-bottom:25px;
+    border-radius:15px;
+    box-shadow:0 10px 20px rgba(0,0,0,.35);
+}
+
+.card h2{
+    margin-bottom:20px;
+    color:#22c55e;
+}
+
+.campo{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:15px;
+}
+
+label{
+    margin-bottom:5px;
+}
+
+input,
+select{
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#374151;
+    color:white;
+    font-size:15px;
+}
+
+input:focus,
+select:focus{
+    outline:2px solid #22c55e;
+}
+
+button{
+    background:#22c55e;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    margin-top:10px;
+    transition:.3s;
+}
+
+button:hover{
+    background:#16a34a;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:12px;
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th{
+    background:#16a34a;
+    padding:12px;
+}
+
+td{
+    background:#374151;
+    padding:10px;
+    text-align:center;
+}
+
+tr:nth-child(even) td{
+    background:#475569;
+}
+
+.excluir{
+    background:#ef4444;
+    border:none;
+    color:white;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.excluir:hover{
+    background:#dc2626;
+}
+
+h3{
+    margin-top:20px;
+    color:#facc15;
+}
+
+@media(max-width:768px){
+
+table{
+    display:block;
+    overflow-x:auto;
+}
+
+header h1{
+    font-size:26px;
+}
+
+.card{
+    padding:18px;
+}
+
+button{
+    width:100%;
+}
+
+}
+
+/* =======================
+   MODO ESCURO / CLARO
+==========================*/
+
+:root{
+    --bg:#111827;
+    --card:#1f2937;
+    --card2:#374151;
+    --text:#ffffff;
+    --verde:#22c55e;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    transition:.3s;
+}
+
+.card{
+    background:var(--card);
+    transition:.3s;
+}
+
+input,
+select,
+textarea{
+    background:var(--card2);
+    color:var(--text);
+}
+
+table td{
+    background:var(--card2);
+}
+
+.light{
+
+    --bg:#f4f4f4;
+    --card:#ffffff;
+    --card2:#ececec;
+    --text:#222;
+
+}
+
+#temaBtn{
+
+margin-top:15px;
+background:#fff;
+color:#222;
+font-weight:bold;
+
+}
+
+.light #temaBtn{
+
+background:#222;
+color:#fff;
+
+}
+
+
+/*=====================
+META DE PESO
+======================*/
+
+.barra{
+
+width:100%;
+height:28px;
+
+background:#444;
+
+border-radius:30px;
+
+overflow:hidden;
+
+margin-top:20px;
+
+}
+
+#progressoPeso{
+
+height:100%;
+
+width:0%;
+
+background:linear-gradient(90deg,#22c55e,#16a34a);
+
+transition:.8s;
+
+color:white;
+
+font-weight:bold;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+
+
+
+/*===================
+MEDIDAS CORPORAIS
+====================*/
+
+#listaMedidas td{
+
+font-size:14px;
+
+}
+
+
+.excluirMedida{
+
+background:#ef4444;
+
+padding:5px 10px;
+
+border-radius:5px;
+
+cursor:pointer;
+
+}
