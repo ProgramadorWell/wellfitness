@@ -1,3 +1,7 @@
+/* ===========================
+   FITNESS TRACKER
+=========================== */
+
 *{
     margin:0;
     padding:0;
@@ -6,275 +10,534 @@
 }
 
 body{
-    background:#111827;
+
+    background:#101214;
     color:#fff;
+
 }
 
-header{
-    background:#16a34a;
-    text-align:center;
+.wrapper{
+
+    display:flex;
+
+}
+
+/* ===========================
+SIDEBAR
+=========================== */
+
+.sidebar{
+
+    width:250px;
+
+    min-height:100vh;
+
+    background:#17191d;
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
     padding:25px;
-    box-shadow:0 5px 15px rgba(0,0,0,.4);
+
+    border-right:1px solid #2f3136;
+
 }
 
-header h1{
-    font-size:34px;
+.logo{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
 }
 
-header p{
-    opacity:.9;
+.logo h2{
+
+    color:#22c55e;
+
+    font-weight:700;
+
 }
 
-.container{
-    width:95%;
-    max-width:1200px;
-    margin:30px auto;
+.sidebar ul{
+
+    list-style:none;
+
 }
+
+.sidebar li{
+
+    margin:12px 0;
+
+}
+
+.sidebar a{
+
+    color:#d1d5db;
+
+    text-decoration:none;
+
+    display:block;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+.sidebar a:hover{
+
+    background:#22c55e;
+
+    color:#fff;
+
+}
+
+.sidebar i{
+
+    width:25px;
+
+}
+
+/* ===========================
+CONTEÚDO
+=========================== */
+
+.content{
+
+    margin-left:250px;
+
+    width:calc(100% - 250px);
+
+    padding:30px;
+
+}
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.topbar h2{
+
+    font-size:32px;
+
+    font-weight:700;
+
+}
+
+.topbar p{
+
+    color:#9ca3af;
+
+}
+
+/* ===========================
+CARDS
+=========================== */
 
 .card{
-    background:#1f2937;
+
+    background:#1b1d21;
+
+    border:none;
+
+    border-radius:18px;
+
     padding:25px;
-    margin-bottom:25px;
-    border-radius:15px;
-    box-shadow:0 10px 20px rgba(0,0,0,.35);
+
+    margin-bottom:30px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+
 }
 
 .card h2{
-    margin-bottom:20px;
+
+    margin-bottom:25px;
+
     color:#22c55e;
+
 }
 
-.campo{
-    display:flex;
-    flex-direction:column;
-    margin-bottom:15px;
+/* ===========================
+DASHBOARD
+=========================== */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+.dash-card{
+
+    background:#25282d;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    text-align:center;
+
+    transition:.3s;
+
+}
+
+.dash-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.dash-card h3{
+
+    color:#9ca3af;
+
+    font-size:18px;
+
+}
+
+.dash-card h1{
+
+    margin-top:10px;
+
+    color:#22c55e;
+
+    font-size:42px;
+
+}
+
+/* ===========================
+FORMULÁRIOS
+=========================== */
+
+.form-control,
+.form-select{
+
+    background:#2b2e34;
+
+    color:#fff;
+
+    border:1px solid #3b3f46;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    background:#2b2e34;
+
+    color:#fff;
+
+    border-color:#22c55e;
+
+    box-shadow:none;
+
+}
+
+.form-control::placeholder{
+
+    color:#9ca3af;
+
 }
 
 label{
-    margin-bottom:5px;
-}
 
-input,
-select{
-    padding:12px;
-    border:none;
-    border-radius:8px;
-    background:#374151;
-    color:white;
-    font-size:15px;
-}
+    margin-bottom:6px;
 
-input:focus,
-select:focus{
-    outline:2px solid #22c55e;
-}
-
-button{
-    background:#22c55e;
-    color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:16px;
-    margin-top:10px;
-    transition:.3s;
-}
-
-button:hover{
-    background:#16a34a;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-    gap:12px;
-    margin-bottom:20px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-}
-
-th{
-    background:#16a34a;
-    padding:12px;
-}
-
-td{
-    background:#374151;
-    padding:10px;
-    text-align:center;
-}
-
-tr:nth-child(even) td{
-    background:#475569;
-}
-
-.excluir{
-    background:#ef4444;
-    border:none;
-    color:white;
-    padding:6px 12px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-.excluir:hover{
-    background:#dc2626;
-}
-
-h3{
-    margin-top:20px;
-    color:#facc15;
-}
-
-@media(max-width:768px){
-
-table{
-    display:block;
-    overflow-x:auto;
-}
-
-header h1{
-    font-size:26px;
-}
-
-.card{
-    padding:18px;
-}
-
-button{
-    width:100%;
-}
+    font-weight:500;
 
 }
 
-/* =======================
-   MODO ESCURO / CLARO
+
+/*==========================
+BOTÕES
 ==========================*/
 
-:root{
-    --bg:#111827;
-    --card:#1f2937;
-    --card2:#374151;
-    --text:#ffffff;
-    --verde:#22c55e;
+.btn{
+
+    border-radius:12px !important;
+
+    font-weight:600;
+
+    transition:.3s;
+
 }
 
-body{
-    background:var(--bg);
-    color:var(--text);
-    transition:.3s;
+.btn-success{
+
+    background:#22c55e !important;
+
+    border:none !important;
+
 }
+
+.btn-success:hover{
+
+    background:#16a34a !important;
+
+    transform:translateY(-2px);
+
+}
+
+.btn-primary{
+
+    background:#2563eb !important;
+
+    border:none !important;
+
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/*==========================
+TABELAS
+==========================*/
+
+.table{
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+}
+
+.table thead{
+
+    background:#22c55e;
+
+    color:#fff;
+
+}
+
+.table td{
+
+    vertical-align:middle;
+
+}
+
+.table-striped tbody tr:nth-child(odd){
+
+    background:#202328;
+
+}
+
+.table-striped tbody tr:nth-child(even){
+
+    background:#262a30;
+
+}
+
+/*==========================
+BARRA DE PROGRESSO
+==========================*/
+
+.progress{
+
+    background:#2f3136;
+
+    border-radius:20px;
+
+    height:28px;
+
+}
+
+.progress-bar{
+
+    font-weight:bold;
+
+}
+
+/*==========================
+CANVAS
+==========================*/
+
+canvas{
+
+    background:#25282d;
+
+    padding:20px;
+
+    border-radius:15px;
+
+}
+
+/*==========================
+ANIMAÇÕES
+==========================*/
 
 .card{
-    background:var(--card);
-    transition:.3s;
-}
 
-input,
-select,
-textarea{
-    background:var(--card2);
-    color:var(--text);
-}
-
-table td{
-    background:var(--card2);
-}
-
-.light{
-
-    --bg:#f4f4f4;
-    --card:#ffffff;
-    --card2:#ececec;
-    --text:#222;
+    animation:fade .5s ease;
 
 }
 
-#temaBtn{
+@keyframes fade{
 
-margin-top:15px;
-background:#fff;
-color:#222;
-font-weight:bold;
+    from{
 
-}
+        opacity:0;
 
-.light #temaBtn{
+        transform:translateY(20px);
 
-background:#222;
-color:#fff;
+    }
 
-}
+    to{
 
+        opacity:1;
 
-/*=====================
-META DE PESO
-======================*/
+        transform:translateY(0);
 
-.barra{
-
-width:100%;
-height:28px;
-
-background:#444;
-
-border-radius:30px;
-
-overflow:hidden;
-
-margin-top:20px;
+    }
 
 }
 
-#progressoPeso{
+/*==========================
+SCROLL
+==========================*/
 
-height:100%;
+::-webkit-scrollbar{
 
-width:0%;
-
-background:linear-gradient(90deg,#22c55e,#16a34a);
-
-transition:.8s;
-
-color:white;
-
-font-weight:bold;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
+    width:10px;
 
 }
 
+::-webkit-scrollbar-track{
 
-
-
-/*===================
-MEDIDAS CORPORAIS
-====================*/
-
-#listaMedidas td{
-
-font-size:14px;
+    background:#17191d;
 
 }
 
+::-webkit-scrollbar-thumb{
 
-.excluirMedida{
+    background:#22c55e;
 
-background:#ef4444;
+    border-radius:10px;
 
-padding:5px 10px;
+}
 
-border-radius:5px;
+/*==========================
+MODO CLARO
+==========================*/
 
-cursor:pointer;
+body.light{
+
+    background:#f5f5f5;
+
+    color:#111;
+
+}
+
+body.light .sidebar{
+
+    background:#ffffff;
+
+    border-right:1px solid #ddd;
+
+}
+
+body.light .sidebar a{
+
+    color:#222;
+
+}
+
+body.light .card{
+
+    background:#ffffff;
+
+    color:#222;
+
+}
+
+body.light .dash-card{
+
+    background:#f2f2f2;
+
+}
+
+body.light .form-control,
+body.light .form-select{
+
+    background:#fff;
+
+    color:#222;
+
+    border:1px solid #ccc;
+
+}
+
+body.light canvas{
+
+    background:#fff;
+
+}
+
+/*==========================
+RESPONSIVO
+==========================*/
+
+@media(max-width:991px){
+
+.sidebar{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:auto;
+
+}
+
+.content{
+
+    margin-left:0;
+
+    width:100%;
+
+}
+
+.wrapper{
+
+    flex-direction:column;
+
+}
+
+.dashboard-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.topbar{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
 
 }
