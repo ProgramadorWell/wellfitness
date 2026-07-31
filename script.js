@@ -1,235 +1,18 @@
-// ===============================
+//=========================================
 // FITNESS TRACKER
-// ===============================
+//=========================================
+
+// ---------- BANCO LOCAL ----------
+
+let perfil = JSON.parse(localStorage.getItem("perfil")) || {};
+
+let meta = JSON.parse(localStorage.getItem("meta")) || {};
 
 let treinos = JSON.parse(localStorage.getItem("treinos")) || [];
 
-function salvarTreinos() {
-    localStorage.setItem("treinos", JSON.stringify(treinos));
-}
+let medidas = JSON.parse(localStorage.getItem("medidas")) || [];
 
-// ===============================
-// IMC
-// ===============================
-
-function calcularIMC() {
-
-    let peso = parseFloat(document.getElementById("pesoIMC").value);
-    let altura = parseFloat(document.getElementById("alturaIMC").value);
-
-    if (!peso || !altura) {
-        alert("Preencha peso e altura.");
-        return;
-    }
-
-    let imc = peso / (altura * altura);
-
-    let situacao = "";
-
-    if (imc < 18.5)
-        situacao = "Abaixo do peso";
-    else if (imc < 25)
-        situacao = "Peso normal";
-    else if (imc < 30)
-        situacao = "Sobrepeso";
-    else if (imc < 35)
-        situacao = "Obesidade Grau I";
-    else if (imc < 40)
-        situacao = "Obesidade Grau II";
-    else
-        situacao = "Obesidade Grau III";
-
-    document.getElementById("resultadoIMC").innerHTML =
-        "IMC: <strong>" +
-        imc.toFixed(2) +
-        "</strong><br>" +
-        situacao;
-
-}
-
-// ===============================
-// ÁGUA
-// ===============================
-
-function calcularAgua() {
-
-    let peso = parseFloat(document.getElementById("pesoAgua").value);
-
-    if (!peso) {
-        alert("Digite seu peso.");
-        return;
-    }
-
-    let litros = (peso * 35) / 1000;
-
-    document.getElementById("resultadoAgua").innerHTML =
-        "Você deve beber aproximadamente <strong>" +
-        litros.toFixed(2) +
-        " litros</strong> por dia.";
-
-}
-
-// ===============================
-// PROTEÍNA
-// ===============================
-
-function calcularProteina() {
-
-    let peso = parseFloat(document.getElementById("pesoProteina").value);
-    let fator = parseFloat(document.getElementById("objetivo").value);
-
-    if (!peso) {
-        alert("Digite seu peso.");
-        return;
-    }
-
-    let proteina = peso * fator;
-
-    document.getElementById("resultadoProteina").innerHTML =
-        "Consuma cerca de <strong>" +
-        proteina.toFixed(0) +
-        " g</strong> de proteína por dia.";
-
-}
-
-// ===============================
-// TREINOS
-// ===============================
-
-function adicionarTreino() {
-
-    let grupo = document.getElementById("grupo").value;
-    let nome = document.getElementById("nome").value;
-    let series = document.getElementById("series").value;
-    let repeticoes = document.getElementById("repeticoes").value;
-    let peso = document.getElementById("peso").value;
-    let obs = document.getElementById("obs").value;
-
-    if (
-        grupo == "" ||
-        nome == "" ||
-        series == "" ||
-        repeticoes == ""
-    ) {
-        alert("Preencha os campos obrigatórios.");
-        return;
-    }
-
-    treinos.push({
-        grupo,
-        nome,
-        series,
-        repeticoes,
-        peso,
-        obs
-    });
-
-    salvarTreinos();
-
-    atualizarTabela();
-
-    limparCampos();
-
-}
-
-function limparCampos() {
-
-    document.getElementById("grupo").value = "";
-    document.getElementById("nome").value = "";
-    document.getElementById("series").value = "";
-    document.getElementById("repeticoes").value = "";
-    document.getElementById("peso").value = "";
-    document.getElementById("obs").value = "";
-
-}
-
-function atualizarTabela() {
-
-    let tabela = document.getElementById("listaTreinos");
-
-    tabela.innerHTML = "";
-
-    treinos.forEach((treino, indice) => {
-
-        tabela.innerHTML += `
-
-        <tr>
-
-            <td>${treino.grupo}</td>
-
-            <td>${treino.nome}</td>
-
-            <td>${treino.series}</td>
-
-            <td>${treino.repeticoes}</td>
-
-            <td>${treino.peso}</td>
-
-            <td>${treino.obs}</td>
-
-            <td>
-
-                <button
-                class="excluir"
-                onclick="excluirTreino(${indice})">
-
-                ❌
-
-                </button>
-
-            </td>
-
-        </tr>
-
-        `;
-
-    });
-
-}
-
-function excluirTreino(indice) {
-
-    if (confirm("Deseja excluir este exercício?")) {
-
-        treinos.splice(indice, 1);
-
-        salvarTreinos();
-
-        atualizarTabela();
-
-    }
-
-}
-
-// ===============================
-// CARREGAR AO ABRIR
-// ===============================
-
-window.onload=function(){
-
-    atualizarTabela();
-
-    carregarPerfil();
-
-    mostrarMeta();
-
-    mostrarMedidas();
-
-}
-
-// =====================
-// TEMA
-// =====================
-
-let tema = localStorage.getItem("tema");
-
-if(tema=="light"){
-
-    document.body.classList.add("light");
-
-    document.getElementById("temaBtn").innerHTML="☀️ Modo Claro";
-
-}
+// ---------- TEMA ----------
 
 function trocarTema(){
 
@@ -239,41 +22,55 @@ function trocarTema(){
 
         localStorage.setItem("tema","light");
 
-        document.getElementById("temaBtn").innerHTML="☀️ Modo Claro";
+        document.getElementById("temaBtn").innerHTML="☀️ Claro";
 
     }else{
 
         localStorage.setItem("tema","dark");
 
-        document.getElementById("temaBtn").innerHTML="🌙 Modo Escuro";
+        document.getElementById("temaBtn").innerHTML="🌙 Escuro";
 
     }
 
 }
 
-//========================
-// DADOS PESSOAIS
-//========================
+function carregarTema(){
 
-let perfil = JSON.parse(localStorage.getItem("perfil")) || {};
+    const tema=localStorage.getItem("tema");
+
+    if(tema==="light"){
+
+        document.body.classList.add("light");
+
+        document.getElementById("temaBtn").innerHTML="☀️ Claro";
+
+    }
+
+}
+
+// ---------- PERFIL ----------
 
 function salvarPerfil(){
 
-    perfil.nome = document.getElementById("nomeUsuario").value;
+    perfil={
 
-    perfil.nascimento = document.getElementById("nascimento").value;
+        nome:document.getElementById("nomeUsuario").value,
 
-    perfil.peso = document.getElementById("pesoAtual").value;
+        nascimento:document.getElementById("nascimento").value,
 
-    perfil.altura = document.getElementById("alturaAtual").value;
+        peso:Number(document.getElementById("pesoAtual").value),
 
-    perfil.objetivo = document.getElementById("objetivoUsuario").value;
+        altura:Number(document.getElementById("alturaAtual").value),
+
+        objetivo:document.getElementById("objetivoUsuario").value
+
+    };
 
     localStorage.setItem("perfil",JSON.stringify(perfil));
 
     carregarPerfil();
-    mostrarMeta();
-    mostrarMedidas();
+
+    atualizarDashboard();
 
 }
 
@@ -281,276 +78,599 @@ function carregarPerfil(){
 
     if(!perfil.nome) return;
 
-    document.getElementById("nomeUsuario").value = perfil.nome;
+    document.getElementById("nomeUsuario").value=perfil.nome;
 
-    document.getElementById("nascimento").value = perfil.nascimento;
+    document.getElementById("nascimento").value=perfil.nascimento;
 
-    document.getElementById("pesoAtual").value = perfil.peso;
+    document.getElementById("pesoAtual").value=perfil.peso;
 
-    document.getElementById("alturaAtual").value = perfil.altura;
+    document.getElementById("alturaAtual").value=perfil.altura;
 
-    document.getElementById("objetivoUsuario").value = perfil.objetivo;
+    document.getElementById("objetivoUsuario").value=perfil.objetivo;
 
-    let idade = "";
+    let idade=calcularIdade(perfil.nascimento);
 
-    if(perfil.nascimento){
-
-        let nasc = new Date(perfil.nascimento);
-
-        let hoje = new Date();
-
-        idade = hoje.getFullYear()-nasc.getFullYear();
-
-        let m = hoje.getMonth()-nasc.getMonth();
-
-        if(m<0 || (m==0 && hoje.getDate()<nasc.getDate()))
-            idade--;
-
-    }
-
-    document.getElementById("perfilInfo").innerHTML=`
-
-        <strong>${perfil.nome}</strong><br>
-
-        Idade: ${idade} anos<br>
-
-        Peso: ${perfil.peso} kg<br>
-
-        Altura: ${perfil.altura} m<br>
-
-        Objetivo: ${perfil.objetivo}
-
-    `;
+    document.getElementById("idade").value=idade;
 
     document.getElementById("tituloUsuario").innerHTML=
 
-    `🏋️ Olá, ${perfil.nome}!`;
+    "Olá, "+perfil.nome+" 👋";
+
+}
+
+function calcularIdade(data){
+
+    if(!data) return "";
+
+    const nasc=new Date(data);
+
+    const hoje=new Date();
+
+    let idade=hoje.getFullYear()-nasc.getFullYear();
+
+    let mes=hoje.getMonth()-nasc.getMonth();
+
+    if(mes<0 || (mes===0 && hoje.getDate()<nasc.getDate())){
+
+        idade--;
+
+    }
+
+    return idade;
+
+}
+
+// ---------- DASHBOARD ----------
+
+function atualizarDashboard(){
+
+    document.getElementById("dashPeso").innerHTML=
+
+    perfil.peso?perfil.peso+" kg":"--";
+
+    if(perfil.peso && perfil.altura){
+
+        let imc=(perfil.peso/(perfil.altura*perfil.altura));
+
+        document.getElementById("dashIMC").innerHTML=
+
+        imc.toFixed(1);
+
+    }
+
+    if(perfil.peso){
+
+        let agua=(perfil.peso*35)/1000;
+
+        document.getElementById("dashAgua").innerHTML=
+
+        agua.toFixed(1)+" L";
+
+        let fator=2;
+
+        if(perfil.objetivo==="Manutenção") fator=1.6;
+
+        if(perfil.objetivo==="Emagrecimento") fator=2.2;
+
+        document.getElementById("dashProteina").innerHTML=
+
+        Math.round(perfil.peso*fator)+" g";
+
+    }
 
 }
 
 
-//========================
+//=========================================
 // META DE PESO
-//========================
-
-let meta = JSON.parse(localStorage.getItem("meta")) || {};
+//=========================================
 
 function salvarMeta(){
 
-meta.atual=parseFloat(document.getElementById("pesoMetaAtual").value);
+    meta={
 
-meta.meta=parseFloat(document.getElementById("pesoMetaDesejado").value);
+        atual:Number(document.getElementById("pesoMetaAtual").value),
 
-localStorage.setItem("meta",JSON.stringify(meta));
+        desejado:Number(document.getElementById("pesoMetaDesejado").value)
 
-mostrarMeta();
+    };
 
-}
+    localStorage.setItem("meta",JSON.stringify(meta));
 
-function mostrarMeta(){
-
-if(!meta.atual || !meta.meta) return;
-
-document.getElementById("pesoMetaAtual").value=meta.atual;
-
-document.getElementById("pesoMetaDesejado").value=meta.meta;
-
-let porcentagem;
-
-if(meta.meta>meta.atual){
-
-// ganhar peso
-
-porcentagem=(meta.atual/meta.meta)*100;
-
-}else{
-
-// perder peso
-
-porcentagem=(meta.meta/meta.atual)*100;
+    carregarMeta();
 
 }
 
-if(porcentagem>100)
-porcentagem=100;
+function carregarMeta(){
 
-document.getElementById("progressoPeso").style.width=porcentagem+"%";
+    if(!meta.atual) return;
 
-document.getElementById("progressoPeso").innerHTML=Math.round(porcentagem)+"%";
+    document.getElementById("pesoMetaAtual").value=meta.atual;
 
-let falta=Math.abs(meta.meta-meta.atual);
+    document.getElementById("pesoMetaDesejado").value=meta.desejado;
 
-document.getElementById("textoMeta").innerHTML=
+    let porcentagem=0;
 
-`Peso atual: <strong>${meta.atual} kg</strong><br>
+    if(meta.desejado>meta.atual){
 
-Meta: <strong>${meta.meta} kg</strong><br>
+        porcentagem=(meta.atual/meta.desejado)*100;
 
-Diferença: <strong>${falta.toFixed(1)} kg</strong>`;
+    }else{
+
+        porcentagem=(meta.desejado/meta.atual)*100;
+
+    }
+
+    porcentagem=Math.min(100,Math.max(0,porcentagem));
+
+    const barra=document.getElementById("progressoPeso");
+
+    barra.style.width=porcentagem+"%";
+
+    barra.innerHTML=Math.round(porcentagem)+"%";
+
+    let diferenca=Math.abs(meta.desejado-meta.atual);
+
+    document.getElementById("textoMeta").innerHTML=
+
+    `Peso Atual: <strong>${meta.atual} kg</strong><br>
+     Meta: <strong>${meta.desejado} kg</strong><br>
+     Diferença: <strong>${diferenca.toFixed(1)} kg</strong>`;
+
+}
+
+//=========================================
+// IMC
+//=========================================
+
+function calcularIMC(){
+
+    let peso=Number(document.getElementById("pesoIMC").value);
+
+    let altura=Number(document.getElementById("alturaIMC").value);
+
+    if(!peso || !altura){
+
+        alert("Informe peso e altura.");
+
+        return;
+
+    }
+
+    let imc=peso/(altura*altura);
+
+    let texto="";
+
+    if(imc<18.5)
+
+        texto="Abaixo do peso";
+
+    else if(imc<25)
+
+        texto="Peso normal";
+
+    else if(imc<30)
+
+        texto="Sobrepeso";
+
+    else if(imc<35)
+
+        texto="Obesidade Grau I";
+
+    else if(imc<40)
+
+        texto="Obesidade Grau II";
+
+    else
+
+        texto="Obesidade Grau III";
+
+    document.getElementById("resultadoIMC").innerHTML=
+
+    `<strong>${imc.toFixed(2)}</strong><br>${texto}`;
+
+}
+
+//=========================================
+// ÁGUA
+//=========================================
+
+function calcularAgua(){
+
+    let peso=Number(document.getElementById("pesoAgua").value);
+
+    if(!peso){
+
+        alert("Informe seu peso.");
+
+        return;
+
+    }
+
+    let litros=(peso*35)/1000;
+
+    document.getElementById("resultadoAgua").innerHTML=
+
+    `Você deve beber aproximadamente <strong>${litros.toFixed(2)} litros</strong> por dia.`;
+
+}
+
+//=========================================
+// PROTEÍNA
+//=========================================
+
+function calcularProteina(){
+
+    let peso=Number(document.getElementById("pesoProteina").value);
+
+    let fator=Number(document.getElementById("objetivo").value);
+
+    if(!peso){
+
+        alert("Informe seu peso.");
+
+        return;
+
+    }
+
+    let proteina=peso*fator;
+
+    document.getElementById("resultadoProteina").innerHTML=
+
+    `Consuma aproximadamente <strong>${Math.round(proteina)} g</strong> de proteína por dia.`;
+
+}
+
+//=========================================
+// TREINOS
+//=========================================
+
+function adicionarTreino(){
+
+    let treino={
+
+        grupo:document.getElementById("grupo").value,
+
+        nome:document.getElementById("nome").value,
+
+        series:document.getElementById("series").value,
+
+        repeticoes:document.getElementById("repeticoes").value,
+
+        peso:document.getElementById("peso").value,
+
+        obs:document.getElementById("obs").value
+
+    };
+
+    if(!treino.grupo || !treino.nome){
+
+        alert("Preencha os campos obrigatórios.");
+
+        return;
+
+    }
+
+    treinos.push(treino);
+
+    localStorage.setItem("treinos",JSON.stringify(treinos));
+
+    atualizarTabela();
+
+    limparCampos();
+
+}
+
+function limparCampos(){
+
+    ["grupo","nome","series","repeticoes","peso","obs"].forEach(id=>{
+
+        document.getElementById(id).value="";
+
+    });
+
+}
+
+function atualizarTabela(){
+
+    const tbody=document.getElementById("listaTreinos");
+
+    tbody.innerHTML="";
+
+    treinos.forEach((t,i)=>{
+
+        tbody.innerHTML+=`
+
+        <tr>
+
+        <td>${t.grupo}</td>
+
+        <td>${t.nome}</td>
+
+        <td>${t.series}</td>
+
+        <td>${t.repeticoes}</td>
+
+        <td>${t.peso}</td>
+
+        <td>${t.obs}</td>
+
+        <td>
+
+        <button
+        class="btn btn-danger btn-sm"
+        onclick="excluirTreino(${i})">
+
+        <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+        </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+function excluirTreino(indice){
+
+    if(confirm("Excluir exercício?")){
+
+        treinos.splice(indice,1);
+
+        localStorage.setItem("treinos",JSON.stringify(treinos));
+
+        atualizarTabela();
+
+    }
 
 }
 
 
-
-
-
-
-
-//========================
+//=========================================
 // MEDIDAS CORPORAIS
-//========================
+//=========================================
 
-
-let medidas = JSON.parse(localStorage.getItem("medidas")) || [];
-
+let graficoPeso = null;
+let graficoCintura = null;
 
 function salvarMedida(){
 
+    const medida={
 
-let medida={
+        data:document.getElementById("dataMedida").value,
 
+        peso:Number(document.getElementById("pesoDia").value),
 
-data:
-document.getElementById("dataMedida").value,
+        bracoD:Number(document.getElementById("bracoD").value),
 
+        bracoE:Number(document.getElementById("bracoE").value),
 
-bracoD:
-document.getElementById("bracoD").value,
+        peito:Number(document.getElementById("peito").value),
 
+        ombro:Number(document.getElementById("ombro").value),
 
-bracoE:
-document.getElementById("bracoE").value,
+        cintura:Number(document.getElementById("cintura").value),
 
+        abdomen:Number(document.getElementById("abdomen").value),
 
-peito:
-document.getElementById("peito").value,
+        quadril:Number(document.getElementById("quadril").value),
 
+        coxaD:Number(document.getElementById("coxaD").value),
 
-ombro:
-document.getElementById("ombro").value,
+        coxaE:Number(document.getElementById("coxaE").value),
 
+        panturrilhaD:Number(document.getElementById("panturrilhaD").value),
 
-cintura:
-document.getElementById("cintura").value,
+        panturrilhaE:Number(document.getElementById("panturrilhaE").value),
 
+        pescoco:Number(document.getElementById("pescoco").value)
 
-abdomen:
-document.getElementById("abdomen").value,
+    };
 
+    if(!medida.data){
 
-quadril:
-document.getElementById("quadril").value,
+        alert("Informe a data da medição.");
 
+        return;
 
-coxaD:
-document.getElementById("coxaD").value,
+    }
 
+    medidas.push(medida);
 
-coxaE:
-document.getElementById("coxaE").value,
+    localStorage.setItem("medidas",JSON.stringify(medidas));
 
+    mostrarMedidas();
 
-panturrilhaD:
-document.getElementById("panturrilhaD").value,
-
-
-panturrilhaE:
-document.getElementById("panturrilhaE").value,
-
-
-pescoco:
-document.getElementById("pescoco").value
-
-
-};
-
-
-medidas.push(medida);
-
-
-localStorage.setItem(
-"medidas",
-JSON.stringify(medidas)
-);
-
-
-mostrarMedidas();
-
-
-alert("Medidas salvas!");
+    atualizarGraficos();
 
 }
-
-
 
 function mostrarMedidas(){
 
+    const tbody=document.getElementById("listaMedidas");
 
-let tabela=document.getElementById("listaMedidas");
+    tbody.innerHTML="";
 
+    medidas.forEach((m,index)=>{
 
-if(!tabela) return;
+        tbody.innerHTML+=`
 
+        <tr>
 
-tabela.innerHTML="";
+        <td>${m.data}</td>
 
+        <td>${m.peso} kg</td>
 
-medidas.forEach((m,index)=>{
+        <td>${m.bracoD} cm</td>
 
+        <td>${m.peito} cm</td>
 
-tabela.innerHTML+=`
+        <td>${m.cintura} cm</td>
 
-<tr>
+        <td>${m.coxaD} cm</td>
 
-<td>${m.data}</td>
+        <td>
 
-<td>${m.bracoD} cm</td>
+            <button
+            class="btn btn-danger btn-sm"
+            onclick="excluirMedida(${index})">
 
-<td>${m.peito} cm</td>
+            <i class="fa-solid fa-trash"></i>
 
-<td>${m.cintura} cm</td>
+            </button>
 
-<td>${m.coxaD} cm</td>
+        </td>
 
+        </tr>
 
-<td>
+        `;
 
-<button 
-class="excluirMedida"
-onclick="excluirMedida(${index})">
-
-❌
-
-</button>
-
-</td>
-
-
-</tr>
-
-`;
-
-
-});
-
+    });
 
 }
 
+function excluirMedida(indice){
 
+    if(confirm("Excluir esta medição?")){
 
-function excluirMedida(index){
+        medidas.splice(indice,1);
 
+        localStorage.setItem("medidas",JSON.stringify(medidas));
 
-medidas.splice(index,1);
+        mostrarMedidas();
 
+        atualizarGraficos();
 
-localStorage.setItem(
-"medidas",
-JSON.stringify(medidas)
-);
-
-
-mostrarMedidas();
-
+    }
 
 }
+
+//=========================================
+// CHART.JS
+//=========================================
+
+function atualizarGraficos(){
+
+    if(medidas.length===0) return;
+
+    const datas=medidas.map(m=>m.data);
+
+    const pesos=medidas.map(m=>m.peso);
+
+    const cintura=medidas.map(m=>m.cintura);
+
+    if(graficoPeso) graficoPeso.destroy();
+
+    if(graficoCintura) graficoCintura.destroy();
+
+    graficoPeso=new Chart(
+
+        document.getElementById("graficoPeso"),
+
+        {
+
+            type:"line",
+
+            data:{
+
+                labels:datas,
+
+                datasets:[{
+
+                    label:"Peso",
+
+                    data:pesos,
+
+                    borderColor:"#22c55e",
+
+                    backgroundColor:"rgba(34,197,94,.15)",
+
+                    fill:true,
+
+                    tension:.35
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false
+
+            }
+
+        }
+
+    );
+
+    graficoCintura=new Chart(
+
+        document.getElementById("graficoCintura"),
+
+        {
+
+            type:"line",
+
+            data:{
+
+                labels:datas,
+
+                datasets:[{
+
+                    label:"Cintura",
+
+                    data:cintura,
+
+                    borderColor:"#3b82f6",
+
+                    backgroundColor:"rgba(59,130,246,.15)",
+
+                    fill:true,
+
+                    tension:.35
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false
+
+            }
+
+        }
+
+    );
+
+}
+
+//=========================================
+// INICIALIZAÇÃO
+//=========================================
+
+window.onload=function(){
+
+    carregarTema();
+
+    carregarPerfil();
+
+    carregarMeta();
+
+    atualizarTabela();
+
+    mostrarMedidas();
+
+    atualizarGraficos();
+
+    atualizarDashboard();
+
+};
